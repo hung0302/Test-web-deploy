@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+  <head>
+    <!-- ====== BASIC META ====== -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mẫu bài blog chuẩn SEO, responsive, tối ưu hiệu năng</title>
+    <meta
+      name="description"
+      content="Mẫu HTML một trang cho bài blog: chuẩn SEO, responsive, hỗ trợ dark mode, mục lục tự động, progress bar, chia sẻ mạng xã hội, box tác giả, bình luận và JSON-LD."
+    />
+    <link rel="canonical" href="https://example.com/bai-blog-mau" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- ====== OPEN GRAPH / TWITTER ====== -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Mẫu bài blog chuẩn SEO, responsive, tối ưu hiệu năng"
+    />
+    <meta
+      property="og:description"
+      content="Mẫu HTML một trang cho bài blog: chuẩn SEO, responsive, hỗ trợ dark mode, mục lục tự động, progress bar, chia sẻ mạng xã hội, box tác giả, bình luận và JSON-LD."
+    />
+    <meta property="og:url" content="https://example.com/bai-blog-mau" />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?w=1200&auto=format&fit=crop&q=80"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- ====== FONTS (Hệ thống) ====== -->
+    <!-- Dùng stack phông hệ thống để nhẹ, không cần CDN: -->
+    <style>
+      /* ====== CSS RESET (rút gọn) ====== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        color: inherit;
+      }
+      :root {
+        /* Màu sáng */
+        --bg: #ffffff;
+        --text: #0f172a; /* slate-900 */
+        --muted: #475569;
+        --border: #e2e8f0; /* slate-200 */
+        --primary: #0ea5e9;
+        --primary-600: #0284c7; /* sky */
+        --accent: #22c55e;
+        --code-bg: #0b1220;
+        --code-text: #e2e8f0;
+        --card: #f8fafc;
+        --shadow: 0 8px 30px rgba(2, 8, 23, 0.08);
+      }
+      .dark {
+        /* Màu tối */
+        --bg: #0b1220;
+        --text: #e2e8f0; /* slate-200 */
+        --muted: #94a3b8;
+        --border: #1f2937; /* gray-800 */
+        --primary: #38bdf8;
+        --primary-600: #0ea5e9;
+        --accent: #4ade80;
+        --code-bg: #0b1220;
+        --code-text: #e2e8f0;
+        --card: #0f172a;
+        --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ====== Base ====== */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font: 16px/1.7 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+        color: var(--text);
+      }
+      .container {
+        max-width: 1080px;
+        margin-inline: auto;
+        padding: 24px;
+      }
+
+      /* Skip link */
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .skip:focus {
+        position: fixed;
+        left: 16px;
+        top: 16px;
+        width: auto;
+        height: auto;
+        background: #fff;
+        color: #000;
+        padding: 8px 12px;
+        border-radius: 8px;
+        z-index: 9999;
+      }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in oklab, var(--bg), transparent 10%);
+        backdrop-filter: saturate(180%) blur(8px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .brand .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: var(--shadow);
+      }
+      .nav a {
+        padding: 8px 10px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .nav a:hover {
+        background: var(--card);
+        color: var(--text);
+      }
+
+      /* Progress bar */
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 0;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        z-index: 60;
+      }
+
+      /* Layout */
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      @media (min-width: 1024px) {
+        .layout {
+          grid-template-columns: 260px 1fr;
+        }
+      }
+      aside {
+        position: sticky;
+        top: 76px;
+        align-self: start;
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      /* TOC */
+      .toc h3 {
+        margin: 0 0 12px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .toc ol {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .toc a {
+        display: block;
+        padding: 6px 0;
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .toc a:hover {
+        color: var(--text);
+      }
+
+      /* Article */
+      article {
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+      }
+      .post {
+        padding: 20px 22px;
+      }
+      .post header {
+        position: relative;
+        border: none;
+        background: transparent;
+      }
+      .post h1 {
+        font-size: clamp(28px, 4vw, 40px);
+        line-height: 1.2;
+        margin: 8px 0 12px;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .cover {
+        margin: 14px 0;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .cover .cap {
+        padding: 8px 12px;
+        background: color-mix(in oklab, var(--bg), transparent 15%);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* Typography */
+      .prose {
+        max-width: 72ch;
+      }
+      .prose h2 {
+        margin-top: 28px;
+        margin-bottom: 8px;
+        font-size: 24px;
+      }
+      .prose h3 {
+        margin-top: 20px;
+        margin-bottom: 6px;
+        font-size: 18px;
+      }
+      .prose p {
+        margin: 10px 0;
+      }
+      .prose blockquote {
+        margin: 16px 0;
+        padding: 14px 16px;
+        border-left: 4px solid var(--primary);
+        background: color-mix(in oklab, var(--bg), transparent 10%);
+        border-radius: 10px;
+      }
+      .prose ul,
+      .prose ol {
+        padding-left: 20px;
+      }
+      .note {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: color-mix(in oklab, var(--bg), transparent 8%);
+        box-shadow: var(--shadow);
+      }
+
+      /* Code */
+      pre {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 16px;
+        border-radius: 12px;
+        overflow: auto;
+        border: 1px solid var(--border);
+        position: relative;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", monospace;
+        font-size: 14px;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(3px);
+        padding: 6px 10px;
+        border-radius: 8px;
+        color: #e2e8f0;
+        cursor: pointer;
+      }
+
+      /* Author box */
+      .author {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        border-top: 1px solid var(--border);
+        padding-top: 18px;
+        margin-top: 8px;
+      }
+      .author img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      /* Tags & share */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0;
+      }
+      .tag {
+        border: 1px solid var(--border);
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: color-mix(in oklab, var(--bg), transparent 10%);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .share {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .btn:hover {
+        background: color-mix(in oklab, var(--bg), black 5%);
+      }
+
+      /* Related */
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      @media (min-width: 700px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: var(--card);
+      }
+      .card .body {
+        padding: 12px;
+      }
+
+      /* Form */
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg);
+        color: var(--text);
+      }
+      textarea {
+        min-height: 120px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        margin-top: 24px;
+      }
+      .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 0;
+        color: var(--muted);
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--border);
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .switch svg {
+        width: 18px;
+        height: 18px;
+      }
+    </style>
+
+    <!-- ====== STRUCTURED DATA JSON-LD ====== -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mẫu bài blog chuẩn SEO, responsive, tối ưu hiệu năng",
+        "image": [
+          "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?w=1200&auto=format&fit=crop&q=80"
+        ],
+        "datePublished": "2025-10-08",
+        "dateModified": "2025-10-08",
+        "author": { "@type": "Person", "name": "Tên Tác Giả" },
+        "publisher": { "@type": "Organization", "name": "MyBlog" },
+        "description": "Mẫu HTML một trang cho bài blog: chuẩn SEO, responsive, hỗ trợ dark mode, mục lục tự động, progress bar, chia sẻ, box tác giả, bình luận và JSON-LD."
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#noi-dung">Bỏ qua điều hướng và đến nội dung chính</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <!-- ====== SITE HEADER / NAV ====== -->
+    <header role="banner">
+      <div class="container nav" aria-label="Thanh điều hướng">
+        <div class="brand" aria-label="Thương hiệu">
+          <div class="logo" aria-hidden="true"></div>
+          <a href="#" style="text-decoration: none; color: inherit">MyBlog</a>
+        </div>
+        <nav class="toolbar" aria-label="Công cụ trang">
+          <a href="#binh-luan" class="btn" title="Xuống phần bình luận"
+            >Bình luận</a
+          >
+          <button
+            id="shareBtn"
+            class="btn"
+            type="button"
+            title="Chia sẻ bài viết"
+            aria-label="Chia sẻ"
+          >
+            📤 Chia sẻ
+          </button>
+          <button
+            id="themeToggle"
+            class="switch"
+            type="button"
+            aria-pressed="false"
+            title="Bật/Tắt chế độ tối"
+          >
+            <svg
+              id="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4 12H2m20 0h-2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"
+              />
+            </svg>
+            <svg
+              id="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              style="display: none"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <span>Giao diện</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ====== LAYOUT ====== -->
+    <div class="container layout" id="noi-dung">
+      <!-- ====== ASIDE: TABLE OF CONTENTS ====== -->
+      <aside aria-label="Mục lục">
+        <div class="toc">
+          <h3>Mục lục</h3>
+          <ol id="toc-list" aria-label="Danh sách mục lục"></ol>
+        </div>
+      </aside>
+
+      <!-- ====== ARTICLE ====== -->
+      <article itemscope itemtype="https://schema.org/Article">
+        <div class="post">
+          <header>
+            <p class="meta">
+              <time itemprop="datePublished" datetime="2025-10-08"
+                >08/10/2025</time
+              >
+              <span aria-hidden="true">•</span>
+              <span id="readingTime" title="Thời gian đọc ước tính"
+                >~ phút đọc</span
+              >
+              <span aria-hidden="true">•</span>
+              <span
+                >Cập nhật:
+                <time itemprop="dateModified" datetime="2025-10-08"
+                  >08/10/2025</time
+                ></span
+              >
+            </p>
+            <h1 itemprop="headline">
+              Hướng dẫn viết một bài blog chất lượng: từ cấu trúc, SEO đến trải
+              nghiệm người đọc
+            </h1>
+            <p class="meta" style="margin-top: 6px">
+              Bởi <span itemprop="author">Tên Tác Giả</span> ·
+              <span class="tag">#SEO</span> <span class="tag">#Content</span>
+              <span class="tag">#Web</span>
+            </p>
+            <figure
+              class="cover"
+              role="img"
+              aria-label="Ảnh bìa bài viết minh hoạ bàn làm việc và laptop"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?w=1600&auto=format&fit=crop&q=80"
+                alt="Bàn làm việc tối giản với laptop và sổ tay"
+                loading="lazy"
+                width="1600"
+                height="900"
+              />
+              <figcaption class="cap">
+                Ảnh bìa minh hoạ – thay bằng ảnh của bạn để tăng tính nhận diện.
+              </figcaption>
+            </figure>
+          </header>
+
+          <div class="prose" id="post-content">
+            <p>
+              <strong>Tóm tắt nhanh:</strong> Bài viết này là một
+              <em>template</em> HTML đầy đủ cho một bài blog: chuẩn SEO,
+              responsive, hỗ trợ dark mode, mục lục tự động, tính thời gian đọc,
+              nút chia sẻ, box tác giả, phần bình luận và dữ liệu cấu trúc
+              JSON-LD.
+            </p>
+
+            <div class="note" role="note" aria-label="Gợi ý sử dụng template">
+              <div>💡</div>
+              <div>
+                <strong>Cách dùng nhanh:</strong> thay <em>title</em>,
+                <em>description</em>, ảnh bìa, tên tác giả, đường dẫn
+                <code>canonical</code> và nội dung bên dưới. Giữ nguyên các thẻ
+                <code>meta</code> & JSON‑LD để tối ưu SEO.
+              </div>
+            </div>
+
+            <h2>1) Cấu trúc thông tin nên có</h2>
+            <p>
+              Một bài blog tốt thường có: mở bài ngắn gọn, mục lục rõ ràng, thân
+              bài có đề mục H2/H3 logic, ví dụ minh hoạ, trích dẫn, hình
+              ảnh/biểu đồ, và phần kết tóm lược cùng CTA (kêu gọi hành động).
+            </p>
+
+            <h3>Mở bài</h3>
+            <p>
+              Giới thiệu vấn đề, bối cảnh, giá trị người đọc nhận được. Tránh
+              lan man. 3–5 câu là hợp lý.
+            </p>
+
+            <h3>Thân bài</h3>
+            <ul>
+              <li>Chia nhóm nội dung theo H2/H3.</li>
+              <li>Dùng đoạn ngắn, gạch đầu dòng, bảng để dễ quét.</li>
+              <li>Chèn ví dụ thực tế/code khi cần.</li>
+            </ul>
+
+            <h3>Kết bài</h3>
+            <p>
+              Tóm tắt 3–5 ý chính, gợi ý tài liệu đọc thêm, và đặt CTA (đăng ký
+              nhận bản tin, bình luận, chia sẻ…).
+            </p>
+
+            <h2>2) Ví dụ minh hoạ code trong bài</h2>
+            <p>
+              Đây là một ví dụ <code>&lt;pre&gt;&lt;code&gt;</code> với nút
+              <em>Copy</em> tự động:
+            </p>
+            <pre><button class="copy-btn" type="button" aria-label="Sao chép mã">Copy</button><code>// Tính trung bình động độ dài câu bằng JS (minh hoạ)
+const text = `Viết blog hay cần có cấu trúc. Nội dung rõ ràng. Ví dụ cụ thể.`;
+const sentences = text.split(/(?<=[.!?])\s+/);
+const avgLen = sentences.reduce((s,x)=>s+x.length,0) / sentences.length;
+console.log(Math.round(avgLen));</code></pre>
+
+            <h2>3) Mẹo SEO nhanh</h2>
+            <ol>
+              <li>Tiêu đề (H1) rõ ràng, chứa từ khoá chính, dưới 60 ký tự.</li>
+              <li>Meta description ~ 150–160 ký tự, hấp dẫn, có CTA.</li>
+              <li>Ảnh có <code>alt</code> mô tả; tên file ảnh có nghĩa.</li>
+              <li>
+                Dùng <code>schema.org/BlogPosting</code> (JSON‑LD) như trong
+                template.
+              </li>
+              <li>Liên kết nội bộ (internal links) hợp lý.</li>
+            </ol>
+
+            <blockquote>
+              “Nội dung tốt + cấu trúc rõ ràng + trải nghiệm mượt mà = tỉ lệ đọc
+              cao hơn.”
+            </blockquote>
+
+            <h2>4) Bảng tóm tắt checklist</h2>
+            <table style="border-collapse: collapse; width: 100%">
+              <thead>
+                <tr
+                  style="
+                    background: color-mix(in oklab, var(--bg), transparent 10%);
+                    text-align: left;
+                  "
+                >
+                  <th style="padding: 10px; border: 1px solid var(--border)">
+                    Hạng mục
+                  </th>
+                  <th style="padding: 10px; border: 1px solid var(--border)">
+                    Cần làm
+                  </th>
+                  <th style="padding: 10px; border: 1px solid var(--border)">
+                    Trạng thái
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    Meta tags
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    Title, Description, Canonical, OG, Twitter
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    ✅
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    JSON-LD
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    BlogPosting schema
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    ✅
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    UX
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    Mục lục, progress bar, dark mode
+                  </td>
+                  <td style="padding: 10px; border: 1px solid var(--border)">
+                    ✅
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>5) Kết luận & CTA</h2>
+            <p>
+              Hãy nhân bản template này cho các bài tiếp theo, tinh chỉnh tone
+              giọng, ví dụ, và liên kết nội bộ theo chủ đề trang của bạn.
+            </p>
+
+            <p id="footnote-demo">
+              Tài liệu tham khảo<sup id="ref-1"
+                ><a href="#fn-1" aria-describedby="footnote-label">[1]</a></sup
+              >.
+            </p>
+            <hr />
+            <p id="footnote-label" style="font-weight: 600">Chú thích</p>
+            <ol>
+              <li id="fn-1">
+                Ví dụ chú thích.
+                <a href="#ref-1" aria-label="Quay lại vị trí tham chiếu">↩</a>
+              </li>
+            </ol>
+          </div>
+
+          <div class="tags" aria-label="Thẻ">
+            <span class="tag">#blog</span><span class="tag">#template</span
+            ><span class="tag">#frontend</span>
+          </div>
+
+          <section aria-label="Chia sẻ" style="margin: 16px 0 2px">
+            <div class="share">
+              <a
+                class="btn"
+                href="https://www.facebook.com/sharer/sharer.php?u=https://example.com/bai-blog-mau"
+                target="_blank"
+                rel="noopener"
+                >🔗 Facebook</a
+              >
+              <a
+                class="btn"
+                href="https://twitter.com/intent/tweet?url=https://example.com/bai-blog-mau&text=M%E1%BA%ABu%20b%C3%A0i%20blog%20chu%E1%BA%A9n%20SEO"
+                target="_blank"
+                rel="noopener"
+                >𝕏 Twitter</a
+              >
+              <a
+                class="btn"
+                href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com/bai-blog-mau"
+                target="_blank"
+                rel="noopener"
+                >in LinkedIn</a
+              >
+            </div>
+          </section>
+
+          <section class="author" aria-label="Tác giả">
+            <img
+              src="https://i.pravatar.cc/112?img=5"
+              alt="Ảnh đại diện tác giả"
+              loading="lazy"
+            />
+            <div>
+              <strong>Tên Tác Giả</strong>
+              <p style="margin: 6px 0; color: var(--muted)">
+                Viết về SEO, analytics và UX writing. Yêu thích tối giản và tính
+                rõ ràng trong nội dung.
+              </p>
+            </div>
+          </section>
+
+          <section aria-label="Bản tin email" style="margin-top: 16px">
+            <h3>Nhận bài viết mới qua email</h3>
+            <form
+              action="#"
+              method="post"
+              onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký! (demo)')"
+            >
+              <div class="field">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="ban@vidu.com"
+                  required
+                />
+              </div>
+              <div style="height: 10px"></div>
+              <button class="btn" type="submit">Đăng ký</button>
+            </form>
+          </section>
+
+          <section aria-label="Bài liên quan" style="margin-top: 18px">
+            <h3>Bài liên quan</h3>
+            <div class="grid">
+              <article class="card">
+                <img
+                  src="https://picsum.photos/600/340?random=1"
+                  alt="Ảnh minh hoạ 1"
+                  loading="lazy"
+                />
+                <div class="body">
+                  <a href="#">Tối ưu tốc độ tải trang cho người mới</a>
+                </div>
+              </article>
+              <article class="card">
+                <img
+                  src="https://picsum.photos/600/340?random=2"
+                  alt="Ảnh minh hoạ 2"
+                  loading="lazy"
+                />
+                <div class="body">
+                  <a href="#">10 mẹo viết meta description hấp dẫn</a>
+                </div>
+              </article>
+              <article class="card">
+                <img
+                  src="https://picsum.photos/600/340?random=3"
+                  alt="Ảnh minh hoạ 3"
+                  loading="lazy"
+                />
+                <div class="body">
+                  <a href="#">Thiết kế mục lục tự động cho blog</a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section
+            id="binh-luan"
+            aria-label="Bình luận"
+            style="margin-top: 18px"
+          >
+            <h3>Viết bình luận</h3>
+            <form
+              action="#"
+              method="post"
+              onsubmit="event.preventDefault(); alert('Bình luận đã gửi! (demo)')"
+            >
+              <div class="field">
+                <label for="name">Tên</label
+                ><input
+                  id="name"
+                  type="text"
+                  placeholder="Tên của bạn"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="comment">Nội dung</label
+                ><textarea
+                  id="comment"
+                  placeholder="Viết bình luận..."
+                  required
+                ></textarea>
+              </div>
+              <div style="height: 10px"></div>
+              <button class="btn" type="submit">Gửi bình luận</button>
+            </form>
+          </section>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <small
+          >© <span id="y"></span> MyBlog ·
+          <a href="#" style="text-decoration: underline">Chính sách</a></small
+        >
+        <small
+          ><a href="#noi-dung" style="text-decoration: none"
+            >↑ Lên đầu trang</a
+          ></small
+        >
+      </div>
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script>
+      // --- Helper: chọn ---
+      const $ = (q, el = document) => el.querySelector(q);
+      const $$ = (q, el = document) => [...el.querySelectorAll(q)];
+
+      // --- Dark mode: lưu trạng thái vào localStorage ---
+      const root = document.documentElement;
+      const html = document.documentElement;
+      const themeToggle = $("#themeToggle");
+      const sun = $("#sun");
+      const moon = $("#moon");
+      function applyTheme(mode) {
+        const isDark =
+          mode === "dark" ||
+          (mode === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        html.classList.toggle("dark", isDark);
+        themeToggle.setAttribute("aria-pressed", String(isDark));
+        sun.style.display = isDark ? "none" : "inline";
+        moon.style.display = isDark ? "inline" : "none";
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+      applyTheme(localStorage.getItem("theme") || "system");
+      themeToggle.addEventListener("click", () =>
+        applyTheme(html.classList.contains("dark") ? "light" : "dark")
+      );
+
+      // --- Reading progress ---
+      const progress = $("#progress");
+      function updateProgress() {
+        const h = document.documentElement;
+        const scrollable = h.scrollHeight - h.clientHeight;
+        const pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+        progress.style.width = pct + "%";
+      }
+      document.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("load", updateProgress);
+
+      // --- Tự tạo Mục lục từ H2/H3 ---
+      function slugify(text) {
+        return text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-");
+      }
+      const content = $("#post-content");
+      const headings = $$("#post-content h2, #post-content h3");
+      const toc = $("#toc-list");
+      let lastLevel = 2; // H2
+      headings.forEach((h) => {
+        const level = +h.tagName[1];
+        if (!h.id) {
+          h.id = slugify(h.textContent);
+        }
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "#" + h.id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        // Lồng mức H3 vào bên trong
+        if (level === 3) {
+          let prev = toc.lastElementChild; // li (H2) trước đó
+          if (!prev) {
+            toc.appendChild(li);
+          } else {
+            let sub = prev.querySelector("ol");
+            if (!sub) {
+              sub = document.createElement("ol");
+              prev.appendChild(sub);
+            }
+            sub.appendChild(li);
+          }
+        } else {
+          toc.appendChild(li);
+        }
+        lastLevel = level;
+      });
+
+      // --- Smooth-anchoring có chừa khoảng header sticky ---
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute("href").slice(1);
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        const y = el.getBoundingClientRect().top + window.scrollY - 76; // chừa header
+        window.scrollTo({ top: y, behavior: "smooth" });
+        history.pushState(null, "", "#" + id);
+      });
+
+      // --- Thời gian đọc (ước tính 200 wpm) ---
+      function readingTime() {
+        const text = content.innerText || "";
+        const words = text.trim().split(/\s+/).filter(Boolean).length;
+        const minutes = Math.max(1, Math.round(words / 200));
+        $("#readingTime").textContent = `${minutes} phút đọc`;
+      }
+      readingTime();
+
+      // --- Nút Copy cho tất cả code blocks ---
+      $$("#post-content pre").forEach((pre) => {
+        const btn =
+          pre.querySelector(".copy-btn") ||
+          Object.assign(document.createElement("button"), {
+            className: "copy-btn",
+            textContent: "Copy",
+          });
+        if (!pre.contains(btn)) pre.appendChild(btn);
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(
+              pre.innerText.replace(/^Copy\n/, "")
+            );
+            btn.textContent = "Đã sao chép";
+            setTimeout(() => (btn.textContent = "Copy"), 1400);
+          } catch {
+            btn.textContent = "Lỗi";
+            setTimeout(() => (btn.textContent = "Copy"), 1400);
+          }
+        });
+      });
+
+      // --- Web Share API (nếu có) ---
+      $("#shareBtn").addEventListener("click", async () => {
+        const url = location.href;
+        const title = document.title;
+        const text = "Chia sẻ bài viết này";
+        if (navigator.share) {
+          try {
+            await navigator.share({ title, text, url });
+          } catch (e) {}
+        } else {
+          try {
+            await navigator.clipboard.writeText(url);
+            alert("Đã sao chép liên kết bài viết!");
+          } catch {
+            alert(url);
+          }
+        }
+      });
+
+      // --- Năm ở footer ---
+      $("#y").textContent = new Date().getFullYear();
+
+      // --- Progressive enhancement cho lớp .no-js ---
+      document.documentElement.classList.remove("no-js");
+    </script>
+  </body>
+</html>
